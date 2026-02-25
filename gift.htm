@@ -1205,25 +1205,55 @@
     </footer>
 
     <script>
-        // Floating hearts animation
+        // Floating hearts animation (desktop only, limited concurrent)
+        let floatingInterval = null;
         function createFloatingHeart() {
+            // disable on small screens to prevent collisions
+            if (window.innerWidth <= 768) return;
+
+            const maxFloating = 6;
+            if (document.querySelectorAll('.floating-heart').length >= maxFloating) return;
+
             const heart = document.createElement('div');
             heart.className = 'floating-heart';
             heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * window.innerWidth + 'px';
+            const size = 14 + Math.random() * 18;
+            heart.style.fontSize = size + 'px';
+            heart.style.left = Math.random() * (window.innerWidth - size) + 'px';
             heart.style.top = window.innerHeight + 'px';
-            
+            heart.style.opacity = 0.8;
+
             if (document.body) {
                 document.body.appendChild(heart);
-                
+
+                // randomize animation duration slightly
+                heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+
                 setTimeout(() => {
-                    heart.remove();
-                }, 3000);
+                    if (heart && heart.parentNode) heart.remove();
+                }, 5500);
             }
         }
 
-        // Create floating hearts occasionally
-        setInterval(createFloatingHeart, 2000);
+        function startFloatingHearts() {
+            if (floatingInterval) return;
+            if (window.innerWidth <= 768) return;
+            floatingInterval = setInterval(createFloatingHeart, 2000);
+        }
+
+        function stopFloatingHearts() {
+            if (floatingInterval) {
+                clearInterval(floatingInterval);
+                floatingInterval = null;
+            }
+            document.querySelectorAll('.floating-heart').forEach(h => h.remove());
+        }
+
+        // start/stop based on initial size
+        window.addEventListener('load', startFloatingHearts);
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) stopFloatingHearts(); else startFloatingHearts();
+        });
 
         // Smooth scroll
         function scrollToSection(sectionId) {
@@ -1257,10 +1287,16 @@
 
         // Celebrate button click
         function celebrateClick() {
-            for (let i = 0; i < 10; i++) {
-                setTimeout(createFloatingHeart, i * 100);
+            if (window.innerWidth <= 768) {
+                // on small screens open modal message instead of floating hearts
+                openHeartMessage('You truly are amazing! 💜');
+            } else {
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(createFloatingHeart, i * 100);
+                }
+                // brief message fallback
+                setTimeout(() => alert('You truly are amazing! 💜'), 300);
             }
-            alert('You truly are amazing! 💜');
         }
 
         // Add fade-in animation on scroll
