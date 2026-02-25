@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For The Love of My Life</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --purple: #8B5CF6;
+            --purple-dark: #7C3AED;
+            --purple-light: #A78BFA;
+            --red: #EF4444;
+            --red-light: #FCA5A5;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --bg-light: #F9FAFB;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* General Styles */
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: var(--purple);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px rgba(139, 92, 246, 0.1);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple), var(--red));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--purple-dark);
+        }
+
+        p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        /* Buttons */
+        button, .btn {
+            background-color: var(--purple);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        button:hover, .btn:hover {
+            background-color: var(--purple-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            border: 2px solid var(--red);
+        }
+
+        button:active, .btn:active {
+            background-color: var(--red);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Heart Icon */
+        .heart {
+            display: inline-block;
+            color: var(--red);
+            font-size: 1.2rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            margin: 0 5px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--red);
+            font-size: 2rem;
+            animation: float-up 3s ease-in forwards;
+            opacity: 0.7;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* ===== LANDING/HERO SECTION ===== */
+        #hero {
+            background: linear-gradient(135deg, #F9FAFB 0%, #F3E8FF 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: slideInDown 0.8s ease;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        /* ===== APPRECIATION SECTION ===== */
+        #appreciation {
+            background-color: var(--white);
+        }
+
+        .appreciation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .appreciation-card {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--purple);
+        }
+
+        .appreciation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+            border-left-color: var(--red);
+        }
+
+        .appreciation-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* ===== MEMORY GALLERY ===== */
+        #memory-gallery {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--purple-light), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.3);
+            border: 3px solid var(--red);
+        }
+
+        .gallery-item::before {
+            content: '❤️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        /* ===== RELATIONSHIP TIMELINE ===== */
+        #timeline {
+            background-color: var(--white);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--purple), var(--red));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            width: 100%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: 52%;
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: 52%;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--red);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 8px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background-color: var(--purple);
+            border: 4px solid var(--red);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            width: 24px;
+            height: 24px;
+            transform: translateX(-50%) scale(1.2);
+            background-color: var(--red);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                padding-right: 0 !important;
+                padding-left: 80px !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+        }
+
+        /* ===== GRATITUDE SECTION ===== */
+        #gratitude {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+        }
+
+        .gratitude-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .gratitude-item {
+            background-color: var(--white);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--purple);
+            box-shadow: 0 2px 10px rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gratitude-item:before {
+            content: '❤️ ';
+            color: var(--red);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .gratitude-item:hover {
+            border-left-color: var(--red);
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1);
+        }
+
+        /* ===== ADMIRATION SECTION ===== */
+        #admiration {
+            background-color: var(--white);
+        }
+
+        .quotes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .quote-card {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-top: 4px solid var(--purple);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 3rem;
+            color: var(--purple);
+            opacity: 0.2;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-8px);
+            border-top-color: var(--red);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.1);
+        }
+
+        /* ===== CONFESSION SECTION ===== */
+        #confession {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+        }
+
+        .confession-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: center;
+            margin: 40px auto;
+            max-width: 700px;
+            padding: 30px;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+            border: 2px solid var(--purple);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(139, 92, 246, 0.2), rgba(239, 68, 68, 0.2));
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* ===== DEVOTION SECTION ===== */
+        #devotion {
+            background-color: var(--white);
+        }
+
+        .devotion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .devotion-card {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .devotion-card::before {
+            content: '❤️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 5rem;
+            opacity: 0.1;
+            transition: all 0.3s ease;
+        }
+
+        .devotion-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        }
+
+        .devotion-card:hover::before {
+            top: 10px;
+            right: 10px;
+            opacity: 0.3;
+        }
+
+        .devotion-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        /* ===== FUTURE PLANS SECTION ===== */
+        #future-plans {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+        }
+
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .plan-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .plan-number {
+            display: inline-block;
+            background: var(--purple);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card:hover {
+            border-color: var(--red);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+        }
+
+        .plan-card:hover .plan-number {
+            background: var(--red);
+            transform: scale(1.2);
+        }
+
+        /* ===== LIVE COUNTER SECTION ===== */
+        #counter {
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .counter-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .counter-box {
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .counter-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+            background: linear-gradient(135deg, var(--red), var(--red-light));
+        }
+
+        .counter-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .counter-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* ===== FINAL MESSAGE SECTION ===== */
+        #final-message {
+            background: linear-gradient(135deg, #F3E8FF 0%, var(--white) 100%);
+        }
+
+        .final-message-box {
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.2);
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            border: 3px solid var(--purple);
+            position: relative;
+        }
+
+        .final-message-box::before,
+        .final-message-box::after {
+            content: '❤️';
+            position: absolute;
+            font-size: 2rem;
+            color: var(--red);
+        }
+
+        .final-message-box::before {
+            top: -20px;
+            left: 20px;
+        }
+
+        .final-message-box::after {
+            bottom: -20px;
+            right: 20px;
+        }
+
+        .final-message-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin: 20px 0;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .footer-hearts {
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            margin: 15px 0;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            color: var(--red);
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        /* ===== SCATTERED INTERACTIVE HEARTS ===== */
+        .interactive-heart {
+            position: fixed;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3));
+        }
+
+        .interactive-heart:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 4px 8px rgba(239, 68, 68, 0.6));
+        }
+
+        /* ===== MODAL STYLES ===== */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 240ms ease, visibility 240ms ease;
+        }
+
+        .modal.show {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-image {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .modal-text {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+            text-align: center;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 2.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 160ms ease, color 160ms ease;
+            padding: 6px 10px;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: var(--red);
+            transform: scale(1.15);
+            outline: none;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.8s ease;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 40px 15px;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+                padding: 5px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#appreciation">Appreciation</a></li>
+            <li><a href="#memory-gallery">Memories</a></li>
+            <li><a href="#timeline">Timeline</a></li>
+            <li><a href="#gratitude">Gratitude</a></li>
+            <li><a href="#admiration">Admiration</a></li>
+            <li><a href="#confession">Confession</a></li>
+            <li><a href="#devotion">Devotion</a></li>
+            <li><a href="#future-plans">Future</a></li>
+            <li><a href="#counter">Counter</a></li>
+            <li><a href="#final-message">Message</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero/Landing Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1>
+                A Special Gift For My Love <span class="heart">❤️</span>
+            </h1>
+            <p class="hero-subtitle">Created with love, appreciation, and gratitude</p>
+            <button onclick="scrollToSection('appreciation')">Begin Your Journey</button>
+        </div>
+    </section>
+
+    <!-- Appreciation Section -->
+    <section id="appreciation">
+        <h2>Why You're Amazing</h2>
+        <div class="appreciation-grid">
+            <div class="appreciation-card">
+                <h3>Your Kindness</h3>
+                <p>The way you show compassion to everyone around you is truly inspiring. Your kindness makes the world a better place.</p>
+            </div>
+            <div class="appreciation-card">
+                <h3>Your Humor</h3>
+                <p>You have a way of making me laugh even on the hardest days. Your sense of humor brightens everything.</p>
+            </div>
+            <div class="appreciation-card">
+                <h3>Your Support</h3>
+                <p>You've always been there when I needed you most. Your unwavering support means everything to me.</p>
+            </div>
+            <div class="appreciation-card">
+                <h3>Your Strength</h3>
+                <p>Your resilience and strength inspire me daily. You face challenges with grace and determination.</p>
+            </div>
+            <div class="appreciation-card">
+                <h3>Your Creativity</h3>
+                <p>The unique way you see the world and express yourself is truly beautiful and captivating.</p>
+            </div>
+            <div class="appreciation-card">
+                <h3>Your Heart</h3>
+                <p>Your big heart and genuine care for others is one of the most beautiful things about you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Gallery Section -->
+    <section id="memory-gallery">
+        <h2>Our Special Moments</h2>
+        <div class="gallery">
+            <div class="gallery-item"><img loading="lazy" src="Images/0e90ee98-1071-44b4-a140-88d2abff8d60.jpg" alt="Memory 1" onclick="openGalleryModal('Images/0e90ee98-1071-44b4-a140-88d2abff8d60.jpg','Memory 1')"></div>
+            <div class="gallery-item"><img loading="lazy" src="Images/37475e79-c99b-444f-bdb9-41c6e76c6897.jpg" alt="Memory 2" onclick="openGalleryModal('Images/37475e79-c99b-444f-bdb9-41c6e76c6897.jpg','Memory 2')"></div>
+            <div class="gallery-item"><img loading="lazy" src="Images/8349de72-ba03-4d66-bde0-21e5f73cb4cf.jpg" alt="Memory 3" onclick="openGalleryModal('Images/8349de72-ba03-4d66-bde0-21e5f73cb4cf.jpg','Memory 3')"></div>
+            <div class="gallery-item"><img loading="lazy" src="Images/95a1924e-28f9-494f-a82e-ff6ce006fb3e.jpg" alt="Memory 4" onclick="openGalleryModal('Images/95a1924e-28f9-494f-a82e-ff6ce006fb3e.jpg','Memory 4')"></div>
+            <div class="gallery-item"><img loading="lazy" src="Images/babfde77-9a02-4fd7-952d-b55769346064.jpg" alt="Memory 5" onclick="openGalleryModal('Images/babfde77-9a02-4fd7-952d-b55769346064.jpg','Memory 5')"></div>
+            <div class="gallery-item"><img loading="lazy" src="Images/e3dc39d3-06c9-4b93-9fc3-d20acafa339a.jpg" alt="Memory 6" onclick="openGalleryModal('Images/e3dc39d3-06c9-4b93-9fc3-d20acafa339a.jpg','Memory 6')"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" onclick="closeGalleryModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" aria-label="Close dialog" onclick="closeGalleryModal()">&times;</button>
+            <div class="modal-image" id="modalImage" style="font-size: 5rem; display: flex; align-items: center; justify-content: center;"></div>
+        </div>
+    </div>
+
+    <!-- Relationship Timeline Section -->
+    <section id="timeline">
+        <h2>Our Journey Together</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">First Meet</div>
+                    <p>We first met at ToH in Roblox, I saw you arguing with someone over stupid stuff and it was funny at first, but then I had the sudden urge to come and help you, and boom, suddenly, we're playing ToH together, talking about who wins the race, about some fun stuff, some other games we play, we had fun, though our friendship lasted for 3 days, because I confessed to you, and suddenly we're a couple, not knowing we'd make history together.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">First Relationship</div>
+                    <p>We became a couple in Roblox, it doesn't sound serious at first, but overtime, we grew more attached to eachother, and I felt more and more in love, it was a fun experience, we always play together, and we're both excited to go home from school just to talk to eachother. You made me feel special and loved. It lasted for 3 whole happy years, nearly 4 actually, but it all came crashing down when we had our last argument, I was devastated when our nearl 4 year relationship ended, that's when reality hit me, and made me realize all those mistakes I've done.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Reunite</div>
+                    <p>After 2 years of growing apart, we reconnected, though it was just supposed to be an apology meet at first, but you ended up accepting me, even if it's just friends. We stayed friends for months, hanging out online and even having matching pfps. I admit it, I actually was waiting for you, but I didn't tell you anything out of respect for your relationship at that time. When I did had the chance, it made me feel happy, made me feel warm and all that fuzzy feeling, I was at my best mood after you accepted me again.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Current</div>
+                    <p>Now, we're back together, and I'm so grateful for that. You've helped me grow, to become a better person, to become someone responsible. Even though I've made mistakes, you still kept pushing me forward and never gave up on me. I'm so lucky to have you in my life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gratitude Section -->
+    <section id="gratitude">
+        <h2>Things I'm Grateful For</h2>
+        <ul class="gratitude-list">
+            <li class="gratitude-item">The way you listen to me without judgment</li>
+            <li class="gratitude-item">How you believe in me despite everything</li>
+            <li class="gratitude-item">The countless little things you do to make me smile</li>
+            <li class="gratitude-item">Your presence on both the good days and bad days</li>
+            <li class="gratitude-item">The adventures we've shared and the memories we've created</li>
+            <li class="gratitude-item">How you make me want to be a better person</li>
+            <li class="gratitude-item">Your honesty towards me</li>
+            <li class="gratitude-item">The love and warmth you bring into my life</li>
+        </ul>
+    </section>
+
+    <!-- Admiration Section -->
+    <section id="admiration">
+        <h2>Things I Admire About You</h2>
+        <div class="quotes-container">
+            <div class="quote-card">
+                <h3>Your Resilience</h3>
+                <p>The way you overcome obstacles and keep moving forward inspires me to be stronger.</p>
+            </div>
+            <div class="quote-card">
+                <h3>Your Ambition</h3>
+                <p>Your drive and passion for your goals remind me to chase my own dreams.</p>
+            </div>
+            <div class="quote-card">
+                <h3>Your Authenticity</h3>
+                <p>You never pretend to be someone you're not, and that genuine nature is captivating.</p>
+            </div>
+            <div class="quote-card">
+                <h3>Your Intelligence</h3>
+                <p>Your perspective and wisdom help me see things from new angles.</p>
+            </div>
+            <div class="quote-card">
+                <h3>Your Generosity</h3>
+                <p>The way you give without expecting anything in return shows true character.</p>
+            </div>
+            <div class="quote-card">
+                <h3>Your Grace</h3>
+                <p>You handle life's challenges with such elegance and poise.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confession Section -->
+    <section id="confession">
+        <h2>A Heartfelt Confession</h2>
+        <div class="confession-text">
+            <p>
+                Every moment with you feels like a beautiful dream. <span class="highlight">You've changed my life</span> 
+                in ways I never expected. Every time I see your smile, I'm reminded of why I fell for you in the first place.
+                <br><br>
+                The way you make me feel seen, valued, and loved is something I never want to take for granted. You don't just 
+                make my good days better—you make even my most difficult days bearable. Your understanding, your patience, and your unconditional 
+                support mean more to me than words could ever express.
+                <br><br>
+                <span class="highlight">You are an incredible person</span>, and I'm so grateful to have you in my life. 
+                I apologize for every struggle I've given you, for every flaws I showed you, for every mistake I've done, but I promise 
+                to always learn from them and to always strive to be the best version of myself for you.
+            </p>
+        </div>
+    </section>
+
+    <!-- Devotion Section -->
+    <section id="devotion">
+        <h2>My Devotion to You</h2>
+        <div class="devotion-grid">
+            <div class="devotion-card">
+                <div class="devotion-icon">🌟</div>
+                <h3>Your Happiness</h3>
+                <p>Your well-being and happiness are my top priority.</p>
+            </div>
+            <div class="devotion-card">
+                <div class="devotion-icon">🎯</div>
+                <h3>Your Dreams</h3>
+                <p>I'm committed to supporting you in achieving your goals.</p>
+            </div>
+            <div class="devotion-card">
+                <div class="devotion-icon">💪</div>
+                <h3>Your Strength</h3>
+                <p>I'll always be here to lift you up and believe in you.</p>
+            </div>
+            <div class="devotion-card">
+                <div class="devotion-icon">🤝</div>
+                <h3>Your Trust</h3>
+                <p>I value and honor the trust you've placed in me.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Plans Section -->
+    <section id="future-plans">
+        <h2>Our Future Together</h2>
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-number">1</div>
+                <h3>More Adventures</h3>
+                <p>Traveling to new places, experiencing new cultures, and making unforgettable memories together.</p>
+            </div>
+            <div class="plan-card">
+                <div class="plan-number">2</div>
+                <h3>Growing Together</h3>
+                <p>Supporting each other through life's journey and becoming the best versions of ourselves.</p>
+            </div>
+            <div class="plan-card">
+                <div class="plan-number">3</div>
+                <h3>Every Type of Date</h3>
+                <p>Going on every single type of date to exist—from romantic dinners to spontaneous adventures.</p>
+            </div>
+            <div class="plan-card">
+                <div class="plan-number">4</div>
+                <h3>Endless Laughter</h3>
+                <p>Continuing to laugh together, share joy, and find humor in the smallest things.</p>
+            </div>
+            <div class="plan-card">
+                <div class="plan-number">5</div>
+                <h3>Deep Connection</h3>
+                <p>Deepening our bond and understanding each other on every level.</p>
+            </div>
+            <div class="plan-card">
+                <div class="plan-number">6</div>
+                <h3>Forever Love</h3>
+                <p>Building a love that lasts through time, challenges, and all of life's seasons.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Counter Section -->
+    <section id="counter">
+        <h2>Counting the Moments</h2>
+        <div class="counter-content">
+            <div class="counter-box">
+                <div class="counter-value" id="days">0</div>
+                <div class="counter-label">Days</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-value" id="hours">0</div>
+                <div class="counter-label">Hours</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-value" id="minutes">0</div>
+                <div class="counter-label">Minutes</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-value" id="seconds">0</div>
+                <div class="counter-label">Seconds</div>
+            </div>
+        </div>
+        <p style="margin-top: 40px; font-size: 1.1rem;">Since we started this beautiful journey together</p>
+    </section>
+
+    <!-- Final Message Section -->
+    <section id="final-message">
+        <h2>One Last Thing...</h2>
+        <div class="final-message-box">
+            <div class="final-message-text">
+                Thank you for being exactly who you are. Thank you for choosing me. Thank you for the love, laughter, 
+                and memories. You mean <span class="highlight">the world</span> to me, and I can't wait to see what 
+                our future holds. This is my gift to you—a reminder of how special and loved you are.
+            </div>
+            <button onclick="celebrateClick()">You're Amazing! 💜</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with <span class="heart">❤️</span> for someone truly special</p>
+        <div class="footer-hearts">❤️ 💜 ❤️</div>
+        <p style="font-size: 0.9rem; margin-top: 20px;">Because you deserve to know how loved you truly are.</p>
+    </footer>
+
+    <script>
+        // Floating hearts animation
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = window.innerHeight + 'px';
+            
+            if (document.body) {
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
+        }
+
+        // Create floating hearts occasionally
+        setInterval(createFloatingHeart, 2000);
+
+        // Smooth scroll
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Live counter - Update this with your actual start date
+        function updateCounter() {
+            // Set your start date here (example: Mar 10, 2025)
+            const startDate = new Date('2025-03-10').getTime();
+            const now = new Date().getTime();
+            const difference = now - startDate;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((difference / 1000 / 60) % 60);
+            const seconds = Math.floor((difference / 1000) % 60);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        // Update counter every second
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // Celebrate button click
+        function celebrateClick() {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createFloatingHeart, i * 100);
+            }
+            alert('You truly are amazing! 💜');
+        }
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Gallery Modal Functions (improved: class toggling, focus management, scroll lock)
+        let lastFocusedElement = null;
+        function openGalleryModal(src, alt) {
+            const modal = document.getElementById('galleryModal');
+            const modalImage = document.getElementById('modalImage');
+            lastFocusedElement = document.activeElement;
+            // if src looks like an image path, show the image; otherwise show text
+            if (src && (src.match(/\.(jpg|jpeg|png|gif|webp)$/i))) {
+                modalImage.innerHTML = '<img class="modal-image" src="' + src + '" alt="' + (alt||'') + '">';
+            } else {
+                modalImage.innerHTML = '<div class="modal-text"><div style="font-size:2rem">💜</div><div style="margin-top:10px">' + (alt || src || '') + '</div></div>';
+            }
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            // focus the modal for accessibility
+            modal.focus();
+        }
+
+        function closeGalleryModal(event) {
+            if (event && event.target && event.target.id && event.target.id !== 'galleryModal') return;
+            const modal = document.getElementById('galleryModal');
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            // clear content after transition to avoid screenreader confusion
+            setTimeout(() => {
+                const modalImage = document.getElementById('modalImage');
+                modalImage.innerHTML = '';
+                if (lastFocusedElement) lastFocusedElement.focus();
+            }, 250);
+        }
+
+        // Create scattered interactive hearts (icons-only on sides; messages shown only in modal)
+        function createScatteredHearts() {
+            const messages = [
+                'RxH',
+                'Strawberry Cheesecake',
+                '07x04',
+                '❤️💜',
+                'tloml<3',
+                'I love you best...est',
+                'MWAH!'
+            ];
+            const sizes = [14, 16, 18, 20, 22, 26, 30];
+
+            for (let i = 0; i < messages.length; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'interactive-heart';
+                const size = sizes[Math.floor(Math.random() * sizes.length)];
+                const msg = messages[i];
+
+                // Show only a small heart icon on the page to avoid blocking content
+                heart.innerHTML = '❤️';
+                heart.style.fontSize = size + 'px';
+                heart.style.opacity = '0.95';
+
+                // Scatter to the sides so main content stays readable
+                heart.style.top = (10 + Math.random() * 80) + '%';
+                if (Math.random() > 0.5) {
+                    heart.style.left = (1 + Math.random() * 6) + '%';
+                } else {
+                    heart.style.right = (1 + Math.random() * 6) + '%';
+                }
+
+                // store message on element and open modal with the message on click
+                heart.dataset.msg = msg;
+                heart.onclick = function(e) {
+                    e.stopPropagation();
+                    openHeartMessage(this.dataset.msg);
+                };
+
+                document.body.appendChild(heart);
+            }
+        }
+
+        function openHeartMessage(message) {
+            const modal = document.getElementById('galleryModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.innerHTML = '<div class="modal-text"><div style="font-size:2rem">💜</div><div style="margin-top:10px">' + message + '</div></div>';
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            modal.focus();
+        }
+
+        // Initialize scattered hearts when page loads
+        window.addEventListener('load', createScatteredHearts);
+
+        // Close modal when pressing Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeGalleryModal();
+            }
+        });
+    </script>
+</body>
+</html>
